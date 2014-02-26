@@ -1,5 +1,7 @@
 # Fastbinder
 
+![Build Status](https://travis-ci.org/andrewchilds/fastbinder.png?branch=master)
+
 Fast and worry-free dynamic event binding.
 
 Add and remove DOM elements dynamically without any additional event binding/unbinding steps. The only bound elements are `window` and `document.body`. Requires jQuery.
