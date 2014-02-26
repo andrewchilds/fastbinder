@@ -1,0 +1,13 @@
+{
+  "name": "fastbinder",
+  "version": "0.1.0",
+  "main": "jquery.fastbinder.js",
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "test"
+  ],
+  "devDependencies": {
+    "jquery": "1.11.0"
+  }
+}
