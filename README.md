@@ -13,7 +13,7 @@ Currently the following attributes are supported:
 - `data-on-submit`
 - `data-on-scroll`
 
-## Install
+### Install
 
 ```js
 bower install fastbinder
@@ -23,7 +23,7 @@ bower install fastbinder
 npm install fastbinder
 ```
 
-## Usage
+### Usage
 
 ```js
 // Initialize
@@ -39,7 +39,7 @@ jQuery.fastbinder.setOptions({ forceExternalLinks: false });
 jQuery.fastbinder.destroy();
 ```
 
-## Examples
+### Examples
 
 ```html
 <!-- Change Handler -->
@@ -61,7 +61,7 @@ jQuery.fastbinder.destroy();
 </form>
 ```
 
-## Running the Test Suite
+### Running the Tests
 
 First, install bower and npm dependencies:
 
