@@ -11,6 +11,16 @@ Provides support for the following `data-` attributes:
 - `data-on-submit`
 - `data-on-scroll`
 
+## Install
+
+```js
+bower install fastbinder
+```
+
+```js
+npm install fastbinder
+```
+
 ## Usage
 
 ```js
