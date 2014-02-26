@@ -1,6 +1,6 @@
 # Fastbinder
 
-Fast and worry-free dynamic event binding.
+Fast and worry-free dynamic event binding. Requires jQuery.
 
 Provides support for the following `data-` attributes:
 
