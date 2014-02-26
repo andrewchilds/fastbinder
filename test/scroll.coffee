@@ -20,7 +20,6 @@ describe 'Scroll Event Handling', ->
       $.fastbinder.setOptions({ scrollDelay: 10 })
 
     it 'should handle scrolls on the element with a delay', ->
-      expect(MyLib.onScroll).not.toHaveBeenCalled()
       $('#test').scroll()
       expect(MyLib.onScroll).not.toHaveBeenCalled()
       waits(20)
@@ -33,18 +32,15 @@ describe 'Scroll Event Handling', ->
       $.fastbinder.setOptions({ scrollDelay: 0 })
 
     it 'should handle scrolls on the element', ->
-      expect(MyLib.onScroll).not.toHaveBeenCalled()
       $('#test').scroll()
       expect(MyLib.onScroll).toHaveBeenCalled()
       expect(target).toBe $('#test')[0]
 
     it 'should handle scrolls on a child element', ->
-      expect(MyLib.onScroll).not.toHaveBeenCalled()
       $('#child').scroll()
       expect(MyLib.onScroll).toHaveBeenCalled()
       expect(target).toBe $('#test')[0]
 
     it 'should ignore scrolls on a parent element', ->
-      expect(MyLib.onScroll).not.toHaveBeenCalled()
       $('#parent').scroll()
       expect(MyLib.onScroll).not.toHaveBeenCalled()

@@ -15,7 +15,6 @@ describe 'Submit Event Handling', ->
       """
 
   it 'should handle submit events on the element', ->
-    expect(MyLib.onSubmit).not.toHaveBeenCalled()
     $('#test').focus()
     $('#test').trigger(jQuery.Event('keyup', { which: 13, keyCode: 13 }))
     $('#test').blur()
@@ -23,14 +22,12 @@ describe 'Submit Event Handling', ->
     expect(target).toBe $('#test')[0]
 
   it 'should ignore keyup events on a non-input element', ->
-    expect(MyLib.onSubmit).not.toHaveBeenCalled()
     $('#parent').focus()
     $('#parent').trigger(jQuery.Event('keyup', { which: 13, keyCode: 13 }))
     $('#parent').blur()
     expect(MyLib.onSubmit).not.toHaveBeenCalled()
 
   it 'should handle proper form submit events on a form element', ->
-    expect(MyLib.onSubmit).not.toHaveBeenCalled()
     $('#submit').click()
     expect(MyLib.onSubmit).toHaveBeenCalled()
     expect(target).toBe $('#parent')[0]

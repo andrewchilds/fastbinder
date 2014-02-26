@@ -18,11 +18,9 @@ describe 'Scroll Event Handling', ->
       $.fastbinder.setOptions({ keyupDelay: 10 })
 
     it 'should handle keyup events on the element with a delay', ->
-      expect(MyLib.onKeyup).not.toHaveBeenCalled()
       $('#test').focus()
       $('#test').keyup()
       $('#test').blur()
-      # $('#test').trigger(jQuery.Event('keyup', { which: 13, keyCode: 13 }))
       expect(MyLib.onKeyup).not.toHaveBeenCalled()
       waits(20)
       runs ->
@@ -34,18 +32,14 @@ describe 'Scroll Event Handling', ->
       $.fastbinder.setOptions({ keyupDelay: 0 })
 
     it 'should handle keyup events on the element', ->
-      expect(MyLib.onKeyup).not.toHaveBeenCalled()
       $('#test').focus()
       $('#test').keyup()
       $('#test').blur()
-      # $('#test').trigger(jQuery.Event('keyup', { which: 13, keyCode: 13 }))
       expect(MyLib.onKeyup).toHaveBeenCalled()
       expect(target).toBe $('#test')[0]
 
     it 'should ignore keyup events on a parent element', ->
-      expect(MyLib.onKeyup).not.toHaveBeenCalled()
       $('#parent').focus()
       $('#parent').keyup()
       $('#parent').blur()
-      # $('#parent').trigger(jQuery.Event('keyup', { which: 13, keyCode: 13 }))
       expect(MyLib.onKeyup).not.toHaveBeenCalled()

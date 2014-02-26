@@ -16,18 +16,15 @@ describe 'Change Event Handling', ->
       """
 
   it 'should handle changes on the element', ->
-    expect(MyLib.onChange).not.toHaveBeenCalled()
     $('#test').change()
     expect(MyLib.onChange).toHaveBeenCalled()
     expect(target).toBe $('#test')[0]
 
   it 'should handle changes on a child element', ->
-    expect(MyLib.onChange).not.toHaveBeenCalled()
     $('#child').change()
     expect(MyLib.onChange).toHaveBeenCalled()
     expect(target).toBe $('#test')[0]
 
   it 'should ignore changes on a parent element', ->
-    expect(MyLib.onChange).not.toHaveBeenCalled()
     $('#parent').change()
     expect(MyLib.onChange).not.toHaveBeenCalled()

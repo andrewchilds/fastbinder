@@ -16,18 +16,20 @@ describe 'Click Event Handling', ->
       """
 
   it 'should handle clicks on the element with the attribute', ->
-    expect(MyLib.onClick).not.toHaveBeenCalled()
     $('#test').click()
     expect(MyLib.onClick).toHaveBeenCalled()
     expect(target).toBe $('#test')[0]
 
   it 'should handle clicks on a child element', ->
-    expect(MyLib.onClick).not.toHaveBeenCalled()
     $('#child').click()
     expect(MyLib.onClick).toHaveBeenCalled()
     expect(target).toBe $('#test')[0]
 
   it 'should ignore clicks on a parent element', ->
+    $('#parent').click()
     expect(MyLib.onClick).not.toHaveBeenCalled()
+
+  it 'should ignore clicks after destroy() is executed', ->
+    $.fastbinder.destroy()
     $('#parent').click()
     expect(MyLib.onClick).not.toHaveBeenCalled()

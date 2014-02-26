@@ -20,7 +20,6 @@ describe 'Hover Event Handling', ->
       $.fastbinder.setOptions({ hoverDelay: 10 })
 
     it 'should handle hovers on the element with a delay', ->
-      expect(MyLib.onHover).not.toHaveBeenCalled()
       $('#test').mousemove()
       expect(MyLib.onHover).not.toHaveBeenCalled()
       waits(20)
@@ -33,18 +32,15 @@ describe 'Hover Event Handling', ->
       $.fastbinder.setOptions({ hoverDelay: 0 })
 
     it 'should handle hovers on the element', ->
-      expect(MyLib.onHover).not.toHaveBeenCalled()
       $('#test').mousemove()
       expect(MyLib.onHover).toHaveBeenCalled()
       expect(target).toBe $('#test')[0]
 
     it 'should handle hovers on a child element', ->
-      expect(MyLib.onHover).not.toHaveBeenCalled()
       $('#child').mousemove()
       expect(MyLib.onHover).toHaveBeenCalled()
       expect(target).toBe $('#test')[0]
 
     it 'should ignore hovers on a parent element', ->
-      expect(MyLib.onHover).not.toHaveBeenCalled()
       $('#parent').mousemove()
       expect(MyLib.onHover).not.toHaveBeenCalled()
