@@ -63,6 +63,16 @@ jQuery.fastbinder.destroy();
 </form>
 ```
 
+### Controller Scope
+
+By using the `data-controller` attribute on either a parent element or the element itself, you can basically namespace your function to a particular controller. For example, changing this input would execute the `MyLibrary.myController.change` function:
+
+```html
+<div data-controller="MyLibrary.myController">
+  <input type="text" data-on-change="change" />
+</div>
+```
+
 ### Running the Tests
 
 First, install bower and npm dependencies:

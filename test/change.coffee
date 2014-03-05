@@ -8,8 +8,8 @@ describe 'Change Event Handling', ->
   beforeEach ->
     spyOn(MyLib, 'onChange').andCallFake -> target = @
     fixture """
-      <div id="parent">
-        <form id="test" data-on-change="MyLib.onChange">
+      <div id="parent" data-controller="MyLib">
+        <form id="test" data-on-change="onChange">
           <input id="child" type="text" name="test" value="test" />
         </form>
       </div>

@@ -15,6 +15,10 @@
  * - data-on-submit
  * - data-on-scroll
  *
+ * ## Scope to Controller
+ *
+ * - data-controller
+ *
  * ## Usage
  *
  * jQuery.fastbinder();
@@ -46,9 +50,13 @@
         el.setAttribute(name, val);
       } else {
         var elAttr = el.getAttribute(name);
-        return isNaN(elAttr) ? elAttr : parseFloat(elAttr);
+        return convertNumber(elAttr);
       }
     }
+  }
+
+  function convertNumber(str) {
+    return (str === '' || isNaN(str)) ? str : parseFloat(str);
   }
 
   function strToFunction(functionName, context) {
@@ -62,6 +70,15 @@
       context = context[namespaces[i]];
     }
     return context[func];
+  }
+
+  function getController(target) {
+    var controller = '';
+    var controllerElement = target.closest('[data-controller]');
+    if (controllerElement.length > 0) {
+      controller = data(controllerElement, 'controller');
+    }
+    return controller;
   }
 
   function keyPressed(e, key) {
@@ -85,12 +102,16 @@
   // Handlers
 
   function fireEventHandler(target, eventType, e) {
-    if (target) {
+    if (target.length > 0) {
       var handler = data(target, eventType);
       if (handler) {
-        handler = strToFunction(handler);
-        if (typeof handler === 'function') {
-          return handler.call(target[0], e);
+        var controller = getController(target);
+        if (controller) {
+          handler = controller + '.' + handler;
+        }
+        var handlerFn = strToFunction(handler);
+        if (typeof handlerFn === 'function') {
+          return handlerFn.call(target[0], e);
         }
       }
     }
