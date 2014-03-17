@@ -50,7 +50,7 @@ jQuery.fastbinder.destroy();
 <!-- Click Handler -->
 <a href="#" data-on-click="MyLibrary.myClickHandler">Execute myFunction on click</a>
 
-<!-- Scroll Handler -->
+<!-- Hover Handler -->
 <div data-on-hover="MyLibrary.myHoverHandler"></a>
 
 <!-- Scroll Handler -->
