@@ -65,7 +65,7 @@ jQuery.fastbinder.destroy();
 
 ### Controller Scope
 
-By using the `data-controller` attribute on either a parent element or the element itself, you can basically namespace your function to a particular controller. For example, changing this input would execute the `MyLibrary.myController.change` function:
+By using the `data-controller` attribute on either a parent element or the element itself, you can namespace a template block to a particular controller. For example, changing this input would execute the `MyLibrary.myController.change` function:
 
 ```html
 <div data-controller="MyLibrary.myController">
