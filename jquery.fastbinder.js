@@ -176,8 +176,10 @@
   function initSubmitHandler() {
     $(window).on('submit.fastbinder', function (e) {
       var target = $(e.target).closest('[data-on-submit]');
-      fireEventHandler(target, 'on-submit', e);
-      return false;
+      if (target.length) {
+        fireEventHandler(target, 'on-submit', e);
+        return false;
+      }
     });
   }
 
