@@ -76,7 +76,7 @@
     var controller = '';
     var controllerElement = target.closest('[data-controller]');
     if (controllerElement.length > 0) {
-      controller = data(controllerElement, 'controller');
+      controller = $.fastbinder.options.controllerPrefix + data(controllerElement, 'controller');
     }
     return controller;
   }
@@ -215,6 +215,7 @@
   };
 
   $.fastbinder.defaults = {
+    controllerPrefix: '',
     hoverDelay: 50,
     keyupDelay: 50,
     scrollDelay: 50,
