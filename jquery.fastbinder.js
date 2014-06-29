@@ -135,6 +135,22 @@
     });
   }
 
+  function initMouseDownHandler() {
+    $(document.body).on('mousedown.fastbinder', function (e) {
+      var target = $(e.target);
+      target = target.closest('[data-on-mousedown]');
+      return fireEventHandler(target, 'on-mousedown', e);
+    });
+  }
+
+  function initMouseUpHandler() {
+    $(document.body).on('mouseup.fastbinder', function (e) {
+      var target = $(e.target);
+      target = target.closest('[data-on-mouseup]');
+      return fireEventHandler(target, 'on-mouseup', e);
+    });
+  }
+
   function initHoverHandler() {
     var timeoutID;
     $(document.body).on('mousemove.fastbinder', function (e) {
@@ -233,6 +249,8 @@
 
   $.fastbinder.init = function () {
     initClickHandler();
+    initMouseDownHandler();
+    initMouseUpHandler();
     initHoverHandler();
     initKeyupHandler();
     initSubmitHandler();
