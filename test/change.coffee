@@ -6,7 +6,10 @@ beforeEach ->
 describe 'Change Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onChange').andCallFake -> target = @
+    spyOn(MyLib, 'onChange').andCallFake ->
+      target = @
+      false
+
     fixture """
       <div id="parent" data-controller="MyLib">
         <form id="test" data-on-change="onChange">

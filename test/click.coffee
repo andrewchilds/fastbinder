@@ -6,7 +6,10 @@ beforeEach ->
 describe 'Click Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onClick').andCallFake -> target = @
+    spyOn(MyLib, 'onClick').andCallFake ->
+      target = @
+      false
+
     fixture """
       <div id="parent">
         <div id="test" data-on-click="MyLib.onClick">

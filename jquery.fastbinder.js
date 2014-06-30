@@ -9,6 +9,8 @@
  * ## Supported Attributes
  *
  * - data-on-click
+ * - data-on-mousedown
+ * - data-on-mouseup
  * - data-on-hover
  * - data-on-keyup
  * - data-on-change
@@ -117,59 +119,49 @@
     }
   }
 
-  function initClickHandler() {
-    $(document.body).on('click.fastbinder', function (e) {
-      var target = $(e.target);
-      // Handle proper links
-      if (target.is('a') && target.attr('href') !== '#' &&
-        !data(target, 'on-click')) {
-        if ($.fastbinder.options.forceExternalLinks &&
-          target.attr('href').toLowerCase().indexOf('http') === 0) {
-          target.attr('target', '_blank');
-        }
+  function genericBinder(options) {
+    options = $.extend({
+      attribute: 'on-click',
+      beforeTrigger: null,
+      context: document.body,
+      delay: 0,
+      deferLookup: false,
+      name: 'click'
+    }, options);
+
+    var names = options.name.split(' ');
+    $.each(names, function (key, val) {
+      names[key] = val + '.' + $.fastbinder.options.namespace;
+    });
+
+    $(options.context).on(names.join(' '), function (e) {
+      var target = $(e.target).closest('[data-' + options.attribute + ']');
+      var timeout;
+
+      if (options.beforeTrigger && !options.beforeTrigger(e)) {
         return;
       }
-
-      target = target.closest('[data-on-click]');
-      return fireEventHandler(target, 'on-click', e);
-    });
-  }
-
-  function initMouseDownHandler() {
-    $(document.body).on('mousedown.fastbinder', function (e) {
-      var target = $(e.target);
-      target = target.closest('[data-on-mousedown]');
-      return fireEventHandler(target, 'on-mousedown', e);
-    });
-  }
-
-  function initMouseUpHandler() {
-    $(document.body).on('mouseup.fastbinder', function (e) {
-      var target = $(e.target);
-      target = target.closest('[data-on-mouseup]');
-      return fireEventHandler(target, 'on-mouseup', e);
-    });
-  }
-
-  function initHoverHandler() {
-    var timeoutID;
-    $(document.body).on('mousemove.fastbinder', function (e) {
-      var fn = function () {
-        var target = $(e.target).closest('[data-on-hover]');
-        fireEventHandler(target, 'on-hover', e);
-      };
-      if ($.fastbinder.options.hoverDelay > 0) {
-        clearTimeout(timeoutID);
-        timeoutID = setTimeout(fn, $.fastbinder.options.hoverDelay);
-      } else {
-        fn();
+      if (target.length || options.deferLookup) {
+        var fn = function () {
+          if (options.deferLookup) {
+            target = $(e.target).closest('[data-' + options.attribute + ']');
+          }
+          return fireEventHandler(target, options.attribute, e);
+        };
+        var delay = (options.delay && $.isFunction(options.delay)) ? options.delay() : options.delay;
+        if (delay) {
+          clearTimeout(timeout);
+          timeout = setTimeout(fn, delay);
+        } else {
+          return fn();
+        }
       }
     });
   }
 
   function initKeyupHandler() {
     var timeoutID;
-    $(window).on('keyup.fastbinder', function (e) {
+    $(window).on('keyup.' + $.fastbinder.options.namespace, function (e) {
       var target = $(document.activeElement);
       if (target.is('input, textarea')) {
         if (keyPressed(e, 'ENTER')) {
@@ -189,37 +181,18 @@
     });
   }
 
-  function initSubmitHandler() {
-    $(window).on('submit.fastbinder', function (e) {
-      var target = $(e.target).closest('[data-on-submit]');
-      if (target.length) {
-        fireEventHandler(target, 'on-submit', e);
-        return false;
+  function handleExternalLinks(e) {
+    // Handle proper links
+    var target = $(e.target);
+    if (target.is('a') && target.attr('href') !== '#' &&
+      !data(target, 'on-click')) {
+      if ($.fastbinder.options.forceExternalLinks &&
+        target.attr('href').toLowerCase().indexOf('http') === 0) {
+        target.attr('target', '_blank');
       }
-    });
-  }
-
-  function initChangeHandler() {
-    $(window).on('change.fastbinder', function (e) {
-      var target = $(e.target).closest('[data-on-change]');
-      fireEventHandler(target, 'on-change', e);
-    });
-  }
-
-  function initScrollHandler() {
-    var timeoutID;
-    $(window).on('scroll.fastbinder', function (e) {
-      var fn = function () {
-        var target = $(e.target).closest('[data-on-scroll]');
-        fireEventHandler(target, 'on-scroll', e);
-      };
-      if ($.fastbinder.options.scrollDelay) {
-        clearTimeout(timeoutID);
-        timeoutID = setTimeout(fn, $.fastbinder.options.scrollDelay);
-      } else {
-        fn();
-      }
-    });
+      return false;
+    }
+    return true;
   }
 
   // Public API
@@ -230,7 +203,10 @@
     $.fastbinder.init();
   };
 
+  $.fastbinder.on = genericBinder;
+
   $.fastbinder.defaults = {
+    namespace: 'fastbinder',
     controllerPrefix: '',
     hoverDelay: 50,
     keyupDelay: 50,
@@ -243,19 +219,41 @@
   };
 
   $.fastbinder.destroy = function () {
-    $(document.body).off('.fastbinder');
-    $(window).off('.fastbinder');
+    $(document.body).off('.' + $.fastbinder.options.namespace);
+    $(window).off('.' + $.fastbinder.options.namespace);
+  };
+
+  $.fastbinder.off = function (eventName) {
+    $(document.body).off(eventName + '.' + $.fastbinder.options.namespace);
+    $(window).off(eventName + '.' + $.fastbinder.options.namespace);
   };
 
   $.fastbinder.init = function () {
-    initClickHandler();
-    initMouseDownHandler();
-    initMouseUpHandler();
-    initHoverHandler();
+    $.fastbinder.on({ name: 'click', attribute: 'on-click', beforeTrigger: handleExternalLinks });
+    $.fastbinder.on({ name: 'mousedown', attribute: 'on-mousedown' });
+    $.fastbinder.on({ name: 'mouseup', attribute: 'on-mouseup' });
+    $.fastbinder.on({ name: 'submit', attribute: 'on-submit', context: window });
+    $.fastbinder.on({ name: 'change', attribute: 'on-change', context: window });
+
+    $.fastbinder.on({
+      name: 'scroll',
+      attribute: 'on-scroll',
+      context: window,
+      delay: function () {
+        return $.fastbinder.options.scrollDelay;
+      },
+      deferLookup: true
+    });
+    $.fastbinder.on({
+      name: 'mousemove',
+      attribute: 'on-hover',
+      delay: function () {
+        return $.fastbinder.options.hoverDelay;
+      },
+      deferLookup: true
+    });
+
     initKeyupHandler();
-    initSubmitHandler();
-    initChangeHandler();
-    initScrollHandler();
   };
 
 }(window.jQuery));

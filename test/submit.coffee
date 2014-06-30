@@ -6,7 +6,10 @@ beforeEach ->
 describe 'Submit Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onSubmit').andCallFake -> target = @
+    spyOn(MyLib, 'onSubmit').andCallFake ->
+      target = @
+      false
+
     fixture """
       <form id="parent" data-on-submit="MyLib.onSubmit">
         <input id="test" data-on-submit="MyLib.onSubmit" type="text" name="testName" value="testValue" />

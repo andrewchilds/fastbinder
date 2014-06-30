@@ -6,7 +6,10 @@ beforeEach ->
 describe 'Scroll Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onKeyup').andCallFake -> target = @
+    spyOn(MyLib, 'onKeyup').andCallFake ->
+      target = @
+      false
+
     fixture """
       <div id="parent">
         <input id="test" data-on-keyup="MyLib.onKeyup" type="text" name="testName" value="testValue" />

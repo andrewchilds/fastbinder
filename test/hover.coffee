@@ -6,7 +6,10 @@ beforeEach ->
 describe 'Hover Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onHover').andCallFake -> target = @
+    spyOn(MyLib, 'onHover').andCallFake ->
+      target = @
+      false
+
     fixture """
       <div id="parent">
         <div id="test" data-on-hover="MyLib.onHover">

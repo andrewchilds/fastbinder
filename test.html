@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fastbinder Test Page</title>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+  <script src="jquery.fastbinder.js"></script>
+  <script>
+    var MyLib = {};
+
+    $(function () {
+      MyLib.MyController = {};
+
+      var methods = [
+        'testChange',
+        'testClick',
+        'testHover',
+        'testKeyUp',
+        'testMouseDown',
+        'testMouseUp',
+        'testScroll',
+        'testSubmit'
+      ];
+
+      _.each(methods, function (method) {
+        MyLib.MyController[method] = function (e) {
+          window.console.log(method, e);
+        };
+      });
+
+      $.fastbinder();
+    });
+
+  </script>
+  <style>
+    body {
+      margin: 30px;
+    }
+
+    input {
+      display: block;
+      margin: 5px 0;
+      padding: 4px;
+      width: 300px;
+    }
+
+    a {
+      display: block;
+      margin: 5px 0;
+    }
+
+    .scroll-test, .hover-test {
+      background: #eee;
+      line-height: 150px;
+      text-align: center;
+      margin: 5px;
+      height: 150px;
+      width: 300px;
+    }
+
+    .scroll-test-container {
+      height: 150px;
+      overflow: auto;
+    }
+
+    .scroll-test {
+      height: 1000px;
+    }
+  </style>
+</head>
+<body>
+  <div data-controller="MyLib.MyController">
+    <input type="text" data-on-change="testChange" value="testChange" />
+    <a href="#" data-on-click="testClick">testClick</a>
+    <div class="hover-test" data-on-hover="testHover">testHover</div>
+    <input type="text" data-on-keyup="testKeyUp" value="testKeyUp" />
+    <a href="#" data-on-mousedown="testMouseDown">testMouseDown</a>
+    <a href="#" data-on-mouseup="testMouseUp">testMouseUp</a>
+    <div class="scroll-test-container" data-on-scroll="testScroll">
+      <div class="scroll-test" data-on-scroll="testScroll">testScroll</div>
+    </div>
+    <form data-on-submit="testSubmit">
+      <input type="text" value="testSubmit (form)" />
+      <input type="submit" value="Submit" />
+    </form>
+    <input type="text" data-on-submit="testSubmit" value="testSubmit (input)" />
+  </div>
+</body>
+</html>

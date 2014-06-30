@@ -9,6 +9,8 @@ Add and remove DOM elements dynamically without any additional event binding/unb
 Currently the following attributes are supported:
 
 - `data-on-click`
+- `data-on-mousedown`
+- `data-on-mouseup`
 - `data-on-hover`
 - `data-on-keyup`
 - `data-on-change`
@@ -71,6 +73,22 @@ By using the `data-controller` attribute on either a parent element or the eleme
 <div data-controller="MyLibrary.myController">
   <input type="text" data-on-change="change" />
 </div>
+```
+
+### Adding and Extending Bindings
+
+For example, to add support for touch events:
+
+```js
+jQuery.fastbinder.on({ name: 'touchstart', attribute: 'on-touchstart' });
+jQuery.fastbinder.on({ name: 'touchend', attribute: 'on-touchend' });
+```
+
+Or to support both mouse and touch events with a single attribute:
+
+```js
+jQuery.fastbinder.on({ name: 'mousedown touchstart', attribute: 'on-mousedown' });
+jQuery.fastbinder.on({ name: 'mouseup touchend', attribute: 'on-mouseup' });
 ```
 
 ### Running the Tests

@@ -6,7 +6,10 @@ beforeEach ->
 describe 'Scroll Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onScroll').andCallFake -> target = @
+    spyOn(MyLib, 'onScroll').andCallFake ->
+      target = @
+      false
+
     fixture """
       <div id="parent">
         <div id="test" data-on-scroll="MyLib.onScroll" style="width: 500px; height: 10000px;">
