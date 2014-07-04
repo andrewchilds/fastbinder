@@ -134,9 +134,9 @@
       names[key] = val + '.' + $.fastbinder.options.namespace;
     });
 
+    var timeout;
     $(options.context).on(names.join(' '), function (e) {
       var target = $(e.target).closest('[data-' + options.attribute + ']');
-      var timeout;
 
       if (options.beforeTrigger && !options.beforeTrigger(e)) {
         return;
@@ -145,10 +145,13 @@
         var fn = function () {
           if (options.deferLookup) {
             target = $(e.target).closest('[data-' + options.attribute + ']');
+            if (target.length === 0) {
+              return;
+            }
           }
           return fireEventHandler(target, options.attribute, e);
         };
-        var delay = (options.delay && $.isFunction(options.delay)) ? options.delay() : options.delay;
+        var delay = (options.delay && $.isFunction(options.delay)) ? options.delay(target) : options.delay;
         if (delay) {
           clearTimeout(timeout);
           timeout = setTimeout(fn, delay);
@@ -247,8 +250,8 @@
     $.fastbinder.on({
       name: 'mousemove',
       attribute: 'on-hover',
-      delay: function () {
-        return $.fastbinder.options.hoverDelay;
+      delay: function (target) {
+        return data(target, 'hover-delay') || $.fastbinder.options.hoverDelay;
       },
       deferLookup: true
     });
