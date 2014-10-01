@@ -187,8 +187,8 @@
   function handleExternalLinks(e) {
     // Handle proper links
     var target = $(e.target);
-    if (target.is('a') && target.attr('href') !== '#' &&
-      !data(target, 'on-click')) {
+    if (target.is('a') && target.attr('href') &&
+      target.attr('href') !== '#' && !data(target, 'on-click')) {
       if ($.fastbinder.options.forceExternalLinks &&
         target.attr('href').toLowerCase().indexOf('http') === 0) {
         target.attr('target', '_blank');
