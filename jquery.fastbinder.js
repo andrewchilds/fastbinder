@@ -175,7 +175,7 @@
           };
           if ($.fastbinder.options.keyupDelay > 0) {
             clearTimeout(timeoutID);
-            setTimeout(fn, $.fastbinder.options.keyupDelay);
+            timeoutID = setTimeout(fn, $.fastbinder.options.keyupDelay);
           } else {
             fn();
           }

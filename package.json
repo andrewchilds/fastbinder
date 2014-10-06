@@ -1,7 +1,7 @@
 {
   "name": "fastbinder",
   "description": "Fast and worry-free dynamic event binding",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "repository": "https://github.com/andrewchilds/fastbinder.git",
   "author": {
     "name": "Andrew Childs",
