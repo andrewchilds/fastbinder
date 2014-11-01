@@ -13,6 +13,7 @@
  * - data-on-mouseup
  * - data-on-hover
  * - data-on-keyup
+ * - data-on-keydown
  * - data-on-change
  * - data-on-submit
  * - data-on-scroll
@@ -164,7 +165,20 @@
 
   function initKeyupHandler() {
     var timeoutID;
-    $(window).on('keyup.' + $.fastbinder.options.namespace, function (e) {
+    $(window).on('keydown.' + $.fastbinder.options.namespace, function (e) {
+      var target = $(document.activeElement);
+      if (target.is('input, textarea')) {
+        var fn = function () {
+          fireEventHandler(target, 'on-keydown', e);
+        };
+        if ($.fastbinder.options.keydownDelay > 0) {
+          clearTimeout(timeoutID);
+          timeoutID = setTimeout(fn, $.fastbinder.options.keydownDelay);
+        } else {
+          fn();
+        }
+      }
+    }).on('keyup.' + $.fastbinder.options.namespace, function (e) {
       var target = $(document.activeElement);
       if (target.is('input, textarea')) {
         if (keyPressed(e, 'ENTER')) {
@@ -212,6 +226,7 @@
     namespace: 'fastbinder',
     controllerPrefix: '',
     hoverDelay: 50,
+    keydownDelay: 0,
     keyupDelay: 50,
     scrollDelay: 50,
     forceExternalLinks: true

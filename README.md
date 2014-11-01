@@ -12,6 +12,7 @@ Currently the following attributes are supported:
 - `data-on-mousedown`
 - `data-on-mouseup`
 - `data-on-hover`
+- `data-on-keydown`
 - `data-on-keyup`
 - `data-on-change`
 - `data-on-submit`
@@ -19,11 +20,11 @@ Currently the following attributes are supported:
 
 ### Install
 
-```js
+```sh
 bower install fastbinder
 ```
 
-```js
+```sh
 npm install fastbinder
 ```
 
@@ -43,7 +44,7 @@ jQuery.fastbinder.setOptions({ forceExternalLinks: false });
 jQuery.fastbinder.destroy();
 ```
 
-### Examples
+### Usage
 
 ```html
 <!-- Change Handler -->
@@ -60,9 +61,20 @@ jQuery.fastbinder.destroy();
 
 <!-- Form submit handler -->
 <form data-on-submit="MyLibrary.mySubmitHandler">
-  <input type="text" />
+  <input type="text" data-on-keyup="MyLibrary.myKeyupHandler" data-on-keydown="" />
   <input type="submit" />
 </form>
+```
+
+```js
+MyLibrary.myKeyupHandler = function (e) {
+  // The jQuery event object is passed in:
+  window.console.log(e, e.which);
+
+  // `this` is bound to the DOMElement:
+  var val = $(this).val();
+  window.console.log(val);
+};
 ```
 
 ### Controller Scope
