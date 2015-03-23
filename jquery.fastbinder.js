@@ -109,10 +109,11 @@
       var handler = data(target, eventType);
       if (handler) {
         var controller = getController(target);
-        if (controller) {
-          handler = controller + '.' + handler;
-        }
         var handlerFn = strToFunction(handler);
+        var controllerHandlerFn = strToFunction(controller + '.' + handler);
+        if (typeof controllerHandlerFn === 'function') {
+          return controllerHandlerFn.call(target[0], e);
+        }
         if (typeof handlerFn === 'function') {
           return handlerFn.call(target[0], e);
         }
