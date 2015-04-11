@@ -8,15 +8,17 @@
  *
  * ## Supported Attributes
  *
+ * - data-on-blur
  * - data-on-click
+ * - data-on-change
+ * - data-on-focus
+ * - data-on-hover
+ * - data-on-keydown
+ * - data-on-keyup
  * - data-on-mousedown
  * - data-on-mouseup
- * - data-on-hover
- * - data-on-keyup
- * - data-on-keydown
- * - data-on-change
- * - data-on-submit
  * - data-on-scroll
+ * - data-on-submit
  *
  * ## Scope to Controller
  *
@@ -253,6 +255,8 @@
     $.fastbinder.on({ name: 'mouseup', attribute: 'on-mouseup' });
     $.fastbinder.on({ name: 'submit', attribute: 'on-submit', context: window });
     $.fastbinder.on({ name: 'change', attribute: 'on-change', context: window });
+    $.fastbinder.on({ name: 'focusin', attribute: 'on-focus' });
+    $.fastbinder.on({ name: 'focusout', attribute: 'on-blur' });
 
     $.fastbinder.on({
       name: 'scroll',
