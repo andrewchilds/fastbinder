@@ -6,7 +6,7 @@ beforeEach ->
 describe 'Hover Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onHover').andCallFake ->
+    spyOn(MyLib, 'onHover').and.callFake ->
       target = @
       false
 
@@ -19,16 +19,14 @@ describe 'Hover Event Handling', ->
       """
 
   describe 'with a hover delay of 10ms', ->
-    beforeEach ->
+    beforeEach (done) ->
       $.fastbinder.setOptions({ hoverDelay: 10 })
+      $('#test').mousemove()
+      setTimeout done, 20
 
     it 'should handle hovers on the element with a delay', ->
-      $('#test').mousemove()
-      expect(MyLib.onHover).not.toHaveBeenCalled()
-      waits(20)
-      runs ->
-        expect(MyLib.onHover).toHaveBeenCalled()
-        expect(target).toBe $('#test')[0]
+      expect(MyLib.onHover).toHaveBeenCalled()
+      expect(target).toBe $('#test')[0]
 
   describe 'without a hover delay', ->
     beforeEach ->

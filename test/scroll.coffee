@@ -6,7 +6,7 @@ beforeEach ->
 describe 'Scroll Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onScroll').andCallFake ->
+    spyOn(MyLib, 'onScroll').and.callFake ->
       target = @
       false
 
@@ -19,16 +19,14 @@ describe 'Scroll Event Handling', ->
       """
 
   describe 'with a scroll delay of 10ms', ->
-    beforeEach ->
+    beforeEach (done) ->
       $.fastbinder.setOptions({ scrollDelay: 10 })
+      $('#test').scroll()
+      setTimeout done, 20
 
     it 'should handle scrolls on the element with a delay', ->
-      $('#test').scroll()
-      expect(MyLib.onScroll).not.toHaveBeenCalled()
-      waits(20)
-      runs ->
-        expect(MyLib.onScroll).toHaveBeenCalled()
-        expect(target).toBe $('#test')[0]
+      expect(MyLib.onScroll).toHaveBeenCalled()
+      expect(target).toBe $('#test')[0]
 
   describe 'without a scroll delay', ->
     beforeEach ->

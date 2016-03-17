@@ -6,7 +6,7 @@ beforeEach ->
 describe 'Scroll Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onKeyup').andCallFake ->
+    spyOn(MyLib, 'onKeyup').and.callFake ->
       target = @
       false
 
@@ -17,18 +17,16 @@ describe 'Scroll Event Handling', ->
       """
 
   describe 'with a keyup delay of 10ms', ->
-    beforeEach ->
+    beforeEach (done) ->
       $.fastbinder.setOptions({ keyupDelay: 10 })
-
-    it 'should handle keyup events on the element with a delay', ->
       $('#test').focus()
       $('#test').keyup()
       $('#test').blur()
-      expect(MyLib.onKeyup).not.toHaveBeenCalled()
-      waits(20)
-      runs ->
-        expect(MyLib.onKeyup).toHaveBeenCalled()
-        expect(target).toBe $('#test')[0]
+      setTimeout done, 20
+
+    it 'should handle keyup events on the element with a delay', ->
+      expect(MyLib.onKeyup).toHaveBeenCalled()
+      expect(target).toBe $('#test')[0]
 
   describe 'without a keyup delay', ->
     beforeEach ->

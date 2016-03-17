@@ -76,10 +76,6 @@ MyLibrary.myKeyupHandler = function (e) {
 </form>
 ```
 
-```js
-
-```
-
 ### Setting a Controller Scope
 
 By using the `data-controller` attribute on either a parent element or the element itself, you can namespace a template block to a particular controller. For example, changing this input would execute the `MyLibrary.myController.change` function:

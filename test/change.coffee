@@ -6,7 +6,7 @@ beforeEach ->
 describe 'Change Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onChange').andCallFake ->
+    spyOn(MyLib, 'onChange').and.callFake ->
       target = @
       false
 

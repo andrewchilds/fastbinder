@@ -6,7 +6,7 @@ beforeEach ->
 describe 'Click Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onClick').andCallFake ->
+    spyOn(MyLib, 'onClick').and.callFake ->
       target = @
       false
 

@@ -6,7 +6,7 @@ beforeEach ->
 describe 'Submit Event Handling', ->
 
   beforeEach ->
-    spyOn(MyLib, 'onSubmit').andCallFake ->
+    spyOn(MyLib, 'onSubmit').and.callFake ->
       target = @
       false
 
