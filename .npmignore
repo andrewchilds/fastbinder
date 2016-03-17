@@ -1,0 +1,7 @@
+/test
+/.gitattributes
+/.travis.yml
+/bower.json
+/Gruntfile.js
+/karma.conf.js
+/test.html
