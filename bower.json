@@ -5,7 +5,12 @@
   "license": "MIT",
   "ignore": [
     "node_modules",
-    "test"
+    "test",
+    ".gitattributes",
+    ".travis.yml",
+    "Gruntfile.js",
+    "karma.conf.js",
+    "test.html"
   ],
   "devDependencies": {
     "jquery": "1.11.0"
