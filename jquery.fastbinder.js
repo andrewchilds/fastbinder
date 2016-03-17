@@ -86,22 +86,8 @@
     return controller;
   }
 
-  function keyPressed(e, key) {
-    var keys = {
-      'LEFT_CLICK': 1,
-      'MIDDLE_CLICK': 2,
-      'RIGHT_CLICK': 3,
-      'TAB': 9,
-      'ENTER': 13,
-      'ESCAPE': 27,
-      'LEFT_ARROW': 37,
-      'UP_ARROW': 38,
-      'RIGHT_ARROW': 39,
-      'DOWN_ARROW': 40,
-      'TILDE': 192
-    };
-
-    return e && e.which === keys[key];
+  function isEnterKey(e) {
+    return e && e.which === 13;
   }
 
   // Handlers
@@ -184,7 +170,7 @@
     }).on('keyup.' + $.fastbinder.options.namespace, function (e) {
       var target = $(document.activeElement);
       if (target.is('input, textarea')) {
-        if (keyPressed(e, 'ENTER')) {
+        if (isEnterKey(e)) {
           fireEventHandler(target, 'on-submit', e);
         } else {
           var fn = function () {
