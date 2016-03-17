@@ -1,7 +1,7 @@
 {
   "name": "fastbinder",
   "description": "Fast and worry-free dynamic event binding",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "repository": "https://github.com/andrewchilds/fastbinder.git",
   "author": {
     "name": "Andrew Childs",
@@ -13,7 +13,7 @@
     "npm": "3.x"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "./node_modules/grunt-cli/bin/grunt test"
   },
   "devDependencies": {
     "grunt": "0.4.5",

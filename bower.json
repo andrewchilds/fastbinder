@@ -1,6 +1,5 @@
 {
   "name": "fastbinder",
-  "version": "0.3.6",
   "main": "jquery.fastbinder.js",
   "license": "MIT",
   "ignore": [
