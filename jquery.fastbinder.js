@@ -210,6 +210,9 @@
   };
 
   $.fastbinder.on = genericBinder;
+  $.fastbinder.strToFunction = strToFunction;
+  $.fastbinder.getController = getController;
+  $.fastbinder.fireEventHandler = fireEventHandler;
 
   $.fastbinder.defaults = {
     namespace: 'fastbinder',
