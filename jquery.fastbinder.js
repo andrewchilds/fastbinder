@@ -97,12 +97,20 @@
       var handler = data(target, eventType);
       if (handler) {
         var controller = getController(target);
-        var handlerFn = strToFunction(handler);
         var controllerHandlerFn = strToFunction(controller + '.' + handler);
+        var handlerFn = strToFunction(handler);
+        var beforeFn = $.fastbinder.options.beforeEventHandlerFn;
+
         if (typeof controllerHandlerFn === 'function') {
+          if (typeof beforeFn === 'function') {
+            beforeFn({ controller: controller, handler: handler, targetElement: target[0] });
+          }
           return controllerHandlerFn.call(target[0], e);
         }
         if (typeof handlerFn === 'function') {
+          if (typeof beforeFn === 'function') {
+            beforeFn({ handler: handler, targetElement: target[0] });
+          }
           return handlerFn.call(target[0], e);
         }
       }
@@ -221,7 +229,8 @@
     keydownDelay: 0,
     keyupDelay: 50,
     scrollDelay: 50,
-    forceExternalLinks: true
+    forceExternalLinks: true,
+    beforeEventHandlerFn: null
   };
 
   $.fastbinder.setOptions = function (options) {
