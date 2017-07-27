@@ -103,14 +103,26 @@
 
         if (typeof controllerHandlerFn === 'function') {
           if (typeof beforeFn === 'function') {
-            beforeFn({ controller: controller, handler: handler, targetElement: target[0] });
+            beforeFn({
+              controller: controller,
+              handler: handler,
+              eventType: eventType,
+              targetElement: target[0]
+            });
           }
+
           return controllerHandlerFn.call(target[0], e);
         }
+
         if (typeof handlerFn === 'function') {
           if (typeof beforeFn === 'function') {
-            beforeFn({ handler: handler, targetElement: target[0] });
+            beforeFn({
+              handler: handler,
+              eventType: eventType,
+              targetElement: target[0]
+            });
           }
+
           return handlerFn.call(target[0], e);
         }
       }
