@@ -69,10 +69,12 @@
     var namespaces = functionName.split('.');
     var func = namespaces.pop();
     for (var i = 0; i < namespaces.length; i++) {
-      if (!context[namespaces[i]]) {
-        return false;
+      if (namespaces[i]) {
+        if (!context[namespaces[i]]) {
+          return false;
+        }
+        context = context[namespaces[i]];
       }
-      context = context[namespaces[i]];
     }
     return context[func];
   }
